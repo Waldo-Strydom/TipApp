@@ -32,6 +32,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.math.RoundingMode
+
+import kotlin.math.round
+import kotlin.math.roundToLong
 
 @Composable
 fun tipFun(){
@@ -88,8 +92,8 @@ fun tipInput(){
                             if(  tipPer.toFloatOrNull()!=null){
                                 tipPer = tipPer;
                                 tot= cal(inputNum, tipPer)
-                                var t = "%.2f".format(tot)
-                                tot = t.toFloat()
+                                val rounded = tot.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+                                tot=rounded.toFloat()
                                 showDialog = false
                             }else{
                                 tipInputColor = appRed
@@ -142,11 +146,15 @@ fun tipInput(){
             ){
             Button(
                 onClick = {
+
                     if(inputNum.toFloatOrNull()!=null){
                         tipPer = 10.00.toString();
                         tot= cal(inputNum, tipPer)
-                        var t = "%.2f".format(tot)
-                        tot = t.toFloat()
+
+
+                        val rounded = tot.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+                        tot=rounded.toFloat()
+
                     }else{
                             amountInputColor = appRed
                     }
@@ -162,8 +170,8 @@ fun tipInput(){
                     if(inputNum.toFloatOrNull()!=null){
                         tipPer = 20.00.toString();
                         tot= cal(inputNum, tipPer)
-                        var t = "%.2f".format(tot)
-                        tot = t.toFloat()
+                        val rounded = tot.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+                        tot=rounded.toFloat()
                     }else{
                         amountInputColor = appRed
                     }
@@ -179,8 +187,8 @@ fun tipInput(){
                     if(inputNum.toFloatOrNull()!=null){
                         tipPer = 30.00.toString();
                         tot= cal(inputNum, tipPer)
-                        var t = "%.2f".format(tot)
-                        tot = t.toFloat()
+                        val rounded = tot.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+                        tot=rounded.toFloat()
                     }else{
                         amountInputColor = appRed
                     }
@@ -233,11 +241,12 @@ fun cal(a: String, b: String): Float {
 val amount = a.toFloat()
 val tipPer = b.toFloat()
 var total = 0.00f
-
+//    println(amount)
+//    println(tipPer)
 val tipAmount = (amount*tipPer)/100
 
 total = amount+tipAmount
-
+//    println(tipPer)
     return total
 
 }
